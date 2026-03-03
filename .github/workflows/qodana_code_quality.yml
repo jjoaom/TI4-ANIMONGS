@@ -1,5 +1,4 @@
 name: Qodana
-
 on:
   workflow_dispatch:
   pull_request:
@@ -9,14 +8,12 @@ on:
       - 'releases/*'
 
 jobs:
-
   qodana-backend:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
       checks: write
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -31,18 +28,20 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_988999275 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
 
-
   qodana-frontend:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
       checks: write
-
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Create Android local.properties
+        run: |
+          echo "sdk.dir=/usr/local/lib/android/sdk" > frontend/android/local.properties
 
       - name: Qodana Frontend (Flutter)
         uses: JetBrains/qodana-action@v2025.3
