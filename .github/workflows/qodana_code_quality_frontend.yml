@@ -27,7 +27,7 @@ jobs:
       - name: Generate local.properties
         run: |
           echo "sdk.dir=/opt/android-sdk" > frontend/android/local.properties
-          echo "flutter.sdk=/opt/flutter" >> frontend/android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> frontend/android/local.properties
 
       - name: Qodana Scan - Frontend Flutter
         uses: JetBrains/qodana-action@v2025.3
