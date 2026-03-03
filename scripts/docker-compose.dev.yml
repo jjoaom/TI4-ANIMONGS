@@ -1,0 +1,58 @@
+# ============================================================
+# DOCKER COMPOSE — AMBIENTE DE DESENVOLVIMENTO LOCAL
+# NÃO UTILIZAR EM PRODUÇÃO
+# ============================================================
+# Pré-requisito: copie env.example para .env e preencha os valores nos diretórios /backend e /db
+# ============================================================
+
+services:
+
+  # ----------------------------------------------------------
+  # BANCO DE DADOS — MySQL
+  # ----------------------------------------------------------
+  mysql:
+    build: ../db
+    container_name: mysql-db
+    restart: unless-stopped
+    env_file:
+      - ../db/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ../db/init:/docker-entrypoint-initdb.d
+    networks:
+      - backend-net
+
+  # ----------------------------------------------------------
+  # BACKEND — Spring Boot
+  # ----------------------------------------------------------
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: springboot-backend
+    restart: unless-stopped
+    env_file:
+      - ../backend/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - backend-net
+
+# ----------------------------------------------------------
+# VOLUMES
+# ----------------------------------------------------------
+volumes:
+  mysql-data:
+    driver: local
+
+# ----------------------------------------------------------
+# NETWORKS
+# ----------------------------------------------------------
+networks:
+  backend-net:
+    driver: bridge
