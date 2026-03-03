@@ -23,14 +23,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Compose
+      - name: Build backend image
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+          docker build -t docker.io/my-organization/my-app-backend:${{ github.sha }} -f backend/Dockerfile backend
 
-      - name: Build all images
+      - name: Build DB image
         run: |
-          docker-compose -f scripts/docker-compose.dev.yml build
+          docker build -t docker.io/my-organization/my-app-db:${{ github.sha }} -f db/Dockerfile db
 
       - name: Scan backend image
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
@@ -40,6 +39,7 @@ jobs:
           template: '@/contrib/sarif.tpl'
           output: 'trivy-backend-results.sarif'
           severity: 'CRITICAL,HIGH'
+
       - name: Scan DB image
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
