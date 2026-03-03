@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0
 
       - name: Generate local.properties
-        run: echo "sdk.dir=/usr/local/lib/android/sdk" > frontend/android/local.properties
+        run: echo "sdk.dir=/opt/android-sdk" > frontend/android/local.properties
 
       - name: Qodana Scan - Frontend Flutter
         uses: JetBrains/qodana-action@v2025.3
