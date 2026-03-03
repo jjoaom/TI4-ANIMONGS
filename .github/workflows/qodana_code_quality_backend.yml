@@ -10,6 +10,7 @@ on:
       - 'releases/*'
     paths:
       - 'backend/**'
+
 jobs:
   qodana-backend:
     runs-on: ubuntu-latest
@@ -18,19 +19,15 @@ jobs:
       pull-requests: write
       checks: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Qodana Scan - Backend Kotlin
         uses: JetBrains/qodana-action@v2025.3
         with:
           pr-mode: false
-          use-caches: true
-          linter: qodana-jvm
-          project-dir: backend
-          within-docker: true
-          cache-dir: .qodana/cache
+          args: -i,backend
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_662540184 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
