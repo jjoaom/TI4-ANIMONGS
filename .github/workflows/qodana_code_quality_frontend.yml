@@ -28,9 +28,12 @@ jobs:
         uses: JetBrains/qodana-action@v2025.3
         with:
           pr-mode: false
+          use-caches: true
+          cache-dir: .qodana/cache
           args: >-
-            --project-path frontend/
-            --image jetbrains/qodana-jvm-android
+            --project-dir frontend
+            --linter qodana-jvm-android
+            --within-docker true
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1255759463 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
