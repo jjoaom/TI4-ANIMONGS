@@ -30,10 +30,13 @@ jobs:
           pr-mode: false
           use-caches: true
           cache-dir: .qodana/cache
-          args: >-
-            --project-dir frontend
-            --linter qodana-jvm-android
-            --within-docker true
+          args: |
+            --project-dir
+            frontend
+            --linter
+            qodana-jvm-android
+            --within-docker
+            true
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1255759463 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
