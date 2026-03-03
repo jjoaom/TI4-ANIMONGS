@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches:
-      - main
-      - 'releases/*'
+    branches: # Specify your branches here
+      - main # The 'main' branch
+      - 'releases/*' # The release branches
 
 jobs:
-  qodana-backend:
+  qodana:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,37 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-
-      - name: Qodana Backend (JVM)
+          ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
+          fetch-depth: 0  # a full history is required for pull request analysis
+      - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2025.3
         with:
-          linter: jetbrains/qodana-jvm
-          project-dir: backend
+          pr-mode: false
         env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_988999275 }}
-          QODANA_ENDPOINT: 'https://qodana.cloud'
-
-  qodana-frontend:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Create Android local.properties
-        run: |
-          echo "sdk.dir=/usr/local/lib/android/sdk" > frontend/android/local.properties
-
-      - name: Qodana Frontend (Flutter)
-        uses: JetBrains/qodana-action@v2025.3
-        with:
-          linter: jetbrains/qodana-flutter
-          project-dir: frontend
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_988999275 }}
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_662540184 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
