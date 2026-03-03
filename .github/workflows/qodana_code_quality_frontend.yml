@@ -1,4 +1,4 @@
-name: Qodana - Frontend
+name: Qodana - Backend
 on:
   workflow_dispatch:
   pull_request:
@@ -10,9 +10,8 @@ on:
       - 'releases/*'
     paths:
       - 'frontend/**'
-
 jobs:
-  qodana-frontend:
+  qodana-backend:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -23,20 +22,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
       - name: Qodana Scan - Frontend Flutter
         uses: JetBrains/qodana-action@v2025.3
         with:
           pr-mode: false
           use-caches: true
+          linter: qodana-jvm-android
+          project-dir: frontend
+          within-docker: true
           cache-dir: .qodana/cache
-          args: |
-            --project-dir
-            frontend
-            --linter
-            qodana-jvm-android
-            --within-docker
-            true
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1255759463 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
