@@ -12,47 +12,62 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  scan-backend:
+    name: Build and scan backend image
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
       actions: read
-    name: Build and scan images
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build backend image
         run: |
-          docker build -t docker.io/my-organization/my-app-backend:${{ github.sha }} -f backend/Dockerfile backend
-
-      - name: Build DB image
-        run: |
-          docker build -t docker.io/my-organization/my-app-db:${{ github.sha }} -f db/Dockerfile db
+          docker build \
+            -t my-app-backend:${{ github.sha }} \
+            -f backend/Dockerfile backend
 
       - name: Scan backend image
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: 'docker.io/my-organization/my-app-backend:${{ github.sha }}'
+          image-ref: 'my-app-backend:${{ github.sha }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-backend-results.sarif'
-          severity: 'CRITICAL,HIGH'
-
-      - name: Scan DB image
-        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
-        with:
-          image-ref: 'docker.io/my-organization/my-app-db:${{ github.sha }}'
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-db-results.sarif'
           severity: 'CRITICAL,HIGH'
 
       - name: Upload backend scan results
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-backend-results.sarif'
+
+  scan-db:
+    name: Build and scan DB image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build DB image
+        run: |
+          docker build \
+            -t my-app-db:${{ github.sha }} \
+            -f db/Dockerfile db
+
+      - name: Scan DB image
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: 'my-app-db:${{ github.sha }}'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-db-results.sarif'
+          severity: 'CRITICAL,HIGH'
 
       - name: Upload DB scan results
         uses: github/codeql-action/upload-sarif@v3
