@@ -6,6 +6,9 @@ FROM eclipse-temurin:21-jdk-alpine AS build
 # Atualiza pacote zlib para corrigir CVE-2023-45853
 RUN apk update && apk upgrade zlib
 
+# Atualiza pacote libpng para corrigir CVE-2026-25646
+RUN apk update && apk upgrade libpng
+
 # Criar usuário não-root para build
 RUN addgroup -S gradle && adduser -S gradle -G gradle
 USER gradle
@@ -31,6 +34,13 @@ RUN java -Djarmode=layertools -jar build/libs/*.jar extract --destination build/
 # Stage 2 — Runtime
 # =========================
 FROM eclipse-temurin:21-jre-alpine
+
+# Atualiza pacote zlib para corrigir CVE-2023-45853
+RUN apk update && apk upgrade zlib
+
+# Atualiza pacote libpng para corrigir CVE-2026-25646
+RUN apk update && apk upgrade libpng
+
 
 # Criar usuário não-root com UID/GID fixos
 RUN addgroup -S -g 1001 spring && adduser -S -u 1001 -G spring spring
