@@ -4,6 +4,9 @@
 # =========================
 FROM mysql:8.0.45-debian
 
+# Atualiza pacote libpng para corrigir CVE-2026-25646
+RUN apk update && apk upgrade libpng
+
 # Copiar configurações customizadas do MySQL
 COPY my.cnf /etc/mysql/conf.d/my.cnf
 
