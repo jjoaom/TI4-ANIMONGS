@@ -3,6 +3,9 @@
 # =========================
 FROM eclipse-temurin:21-jdk-alpine AS build
 
+# Atualiza pacote zlib para corrigir CVE-2023-45853
+RUN apk update && apk upgrade zlib
+
 # Criar usuário não-root para build
 RUN addgroup -S gradle && adduser -S gradle -G gradle
 USER gradle
