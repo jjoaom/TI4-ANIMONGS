@@ -31,6 +31,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2")
+	implementation("com.fasterxml.jackson.core:jackson-core:2.21.1") {
+            because("Mitigates GHSA-72hv-8253-57qq")
+        }
 	implementation("tools.jackson.module:jackson-module-kotlin:3.1.0")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
