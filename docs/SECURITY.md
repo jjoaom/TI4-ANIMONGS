@@ -20,6 +20,7 @@ Se você encontrar uma vulnerabilidade neste projeto, **não abra uma issue púb
 
 Entre em contato pelo e-mail: **joaomarcos.aquino@hotmail.com**
 
+    
 ---
 
 ## CVE Tracking
