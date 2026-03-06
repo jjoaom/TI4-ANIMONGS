@@ -2,9 +2,12 @@ name: trivy
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - dev
+      - main
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
+  workflow_dispatch:
   schedule:
     - cron: '33 0 * * 0'
 
