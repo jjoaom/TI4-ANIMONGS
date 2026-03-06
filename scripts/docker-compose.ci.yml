@@ -1,36 +1,37 @@
-# ============================================================
-# DOCKER COMPOSE — AMBIENTE DE DESENVOLVIMENTO LOCAL
-# NÃO UTILIZAR EM PRODUÇÃO
-# ============================================================
-# Pré-requisito: copie env.example para .env e preencha os valores nos diretórios /backend e /db
-# ============================================================
-
 services:
 
-  #  MySQL
   mysql:
     build: ../db
     container_name: mysql-db
     restart: unless-stopped
-    env_file:
-      - ../db/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ci_root
+      MYSQL_DATABASE: animongs_db
+      MYSQL_USER: ci_user
+      MYSQL_PASSWORD: ci_password
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
       - ../db/init:/docker-entrypoint-initdb.d
     networks:
       - backend-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # SpringBoot Kotlin
   backend:
     build:
       context: ../backend
       dockerfile: Dockerfile
     container_name: springboot-backend
     restart: unless-stopped
-    env_file:
-      - ../backend/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/animongs_db
+      SPRING_DATASOURCE_USERNAME: ci_user
+      SPRING_DATASOURCE_PASSWORD: ci_password
+      SPRING_PROFILES_ACTIVE: ci
     ports:
       - "8080:8080"
     depends_on:
