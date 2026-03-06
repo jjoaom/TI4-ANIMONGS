@@ -1,12 +1,13 @@
 name: Nuclei
 
 on:
-  push:
-    branches:
-      - dev
-      - main
   pull_request:
     branches: ["main"]
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+      - 'docker-compose*.yml'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
