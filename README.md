@@ -5,7 +5,7 @@
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-squaree&logo=dart&logoColor=white)
 ![FLutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat-square&logo=docker&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=githubactions&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-0A3FA7?style=flat-square&logo=githubactions&logoColor=white)
 
 ![Qodana Scan](https://github.com/jjoaom/TI4-ANIMONGS/actions/workflows/qodana_code_quality_backend.yml/badge.svg)
 
