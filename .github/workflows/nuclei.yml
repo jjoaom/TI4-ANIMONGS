@@ -1,0 +1,51 @@
+name: DAST Scan
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  dast:
+    name: Nuclei
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start application
+        run: docker compose -f scripts/docker-compose.dev.yml up -d
+
+      - name: Wait for backend
+        run: |
+          timeout 60 bash -c \
+            'until curl -sf http://localhost:8080/actuator/health; do sleep 3; done'
+
+      - name: Nuclei Scan
+        uses: projectdiscovery/nuclei-action@main
+        with:
+          target: http://localhost:8080
+          tags: spring,actuator,exposure,misconfig,cve
+          severity: medium,high,critical
+          sarif-export: nuclei-results.sarif
+
+      - name: Upload Nuclei SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: nuclei-results.sarif
+          category: nuclei
+
+      - name: Teardown
+        if: always()
+        run: docker compose down
