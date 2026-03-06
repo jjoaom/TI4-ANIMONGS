@@ -7,8 +7,17 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat-square&logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
 ![Qodana Scan](https://github.com/jjoaom/TI4-ANIMONGS/actions/workflows/qodana_code_quality_backend.yml/badge.svg)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjoaom_TI4-ANIMONGS&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jjoaom_TI4-ANIMONGS)
+
+
 
 # Sobre o projeto
 > TO DO...
