@@ -1,13 +1,16 @@
 # Security Policy
 
-## Supported Versions
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0     | :white_check_mark: |
-| < 1.0   | :x:                |
-
 > Esta é a versão usada no trabalho do semestre. Não há suporte para versões anteriores.
+
+---
+
+| Ferramenta | Tipo | O que verifica | Quando executa |
+| ----- | ----- | ----- | ----- |
+| SonarQube | SAST/SCA | Qualidade e Segurança de código geral e dependências desatualizas | Scan Automático em Cloud |
+| Qodana | SAST/SCA | Vulnerabilidades no código fonte Kotlin e dependências desatualizadas | Scan Automático em Cloud |
+| Semgrep | SAST | Vulnerabilidades no código fonte | CI - A cada Push/PR |
+| Trivy | Container Scan | CVEs em Imagens Docker e dependências | CI - A cada Push/PR |
+| Nuclei | DAST | Scan baseado em template por envio de requisições para identificar vulnerabilidades | CI - A cada Push/PR |
 
 ---
 
@@ -17,6 +20,7 @@ Se você encontrar uma vulnerabilidade neste projeto, **não abra uma issue púb
 
 Entre em contato pelo e-mail: **joaomarcos.aquino@hotmail.com**
 
+    
 ---
 
 ## CVE Tracking
@@ -36,18 +40,3 @@ Vulnerabilidades identificadas via Trivy e acompanhadas pela equipe de seguranç
 
 
 ---
-
-## Security Tools
-
-| Ferramenta | Uso |
-| --- | --- |
-| Trivy | Scan de vulnerabilidades em imagens Docker e filesystem |
-| Semgrep | SAST, SCA e Secret Management |
-| Sonarqube | Análise Estática de Qualidade e Segurança |
-
----
-
-## Review Policy
-
-- CVEs com status **RESERVED** são revisadas mensalmente
-- CVEs aceitas são reavaliadas a cada nova versão do projeto
