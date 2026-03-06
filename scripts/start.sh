@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 cd ..
-docker compose -f scripts/docker-compose.dev.yml up --build
+docker compose -f scripts/docker-compose.dev.yml up
