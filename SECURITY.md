@@ -11,6 +11,7 @@
 | Semgrep | SAST | Vulnerabilidades no código fonte | CI - A cada Push/PR |
 | Trivy | Container Scan | CVEs em Imagens Docker e dependências | CI - A cada Push/PR |
 | Nuclei | DAST | Scan baseado em template por envio de requisições para identificar vulnerabilidades | CI - A cada Push/PR |
+| ZAP | DAST | Scan dinâmico de aplicações web/APIs via análise de requisições HTTP para identificar vulnerabilidades (ex: XSS, SQLi, headers inseguros, autenticação, configuração) | Execução manual |
 
 ---
 
